@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marie Curie - Biography</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container with box model demonstration */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Header section */
+        .header {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="30" r="1.5" fill="white" opacity="0.1"/></svg>');
+            pointer-events: none;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #666;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main content area */
+        .content {
+            padding: 40px;
+        }
+
+        /* Section styling */
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+            border-radius: 0 10px 10px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        /* Typography and text styling */
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        /* Lists styling */
+        .achievements {
+            list-style: none;
+            padding: 0;
+        }
+
+        .achievements li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .achievements li:hover {
+            background: #fff5f5;
+            transform: translateX(5px);
+        }
+
+        .achievements li::before {
+            content: "🏆";
+            margin-right: 10px;
+        }
+
+        /* Attribute selectors demonstration */
+        .quote[data-author] {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-style: italic;
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .quote[data-author]::before {
+            content: """;
+            font-size: 4em;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            color: #3498db;
+        }
+
+        .quote[data-author]::after {
+            content: "— " attr(data-author);
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #bdc3c7;
+        }
+
+        /* Pseudo-classes and pseudo-elements */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3498db;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3498db;
+            border: 3px solid white;
+        }
+
+        .timeline-item:nth-child(even) {
+            background: #ecf0f1;
+        }
+
+        .year {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        /* Interactive elements */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <img src="img/WhatsApp Image 2025-07-03 at 19.44.11.jpeg" alt="Marie Curie" class="profile-img">
+            <h1>Jose Thomas</h1>
+            <p class="subtitle">Developer, Digital Artist and Manager</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- About Section -->
+            <section class="section">
+                <h2>About</h2>
+                <p>Jose Thomas is a <span class="highlight">Kerala-born digital artist and front-end developer</span> passionate about creative expression and technology. He is known for his innovative digital artworks, strong frontend development skills, and contributions to campus tech communities.</p>
+<p>Born in Kuravilangad, he blends art and code to tell impactful stories. His journey spans mentoring, hackathons, and brand building—laying the foundation for a future driven by design, development, and meaningful digital experiences.</p>
+</section>
+
+            <!-- Quote Section -->
+            <div class="quote" data-author="Jose Thomas">
+               "Don’t wait for clarity to begin—create it. In a world full of noise, build something that speaks for you."</div>
+
+            <!-- Achievements Section -->
+            <section class="section">
+                <h2>Major Achievements</h2>
+                <ul class="achievements">
+                    <li><strong>2023:</strong> Started building a personal brand in digital art and web development</li>
+<li><strong>2024:</strong> Designed the official poster for SARGAM Arts Fest at SJCET using freehand digital art</li>
+<li><strong>2024:</strong> Became the Chief Marketing Officer at IEDC SJCET and mentor at µLearn SJCET</li>
+<li><strong>2024:</strong> Launched "Inkspire" — a niche e-commerce platform for selling art merchandise</li>
+<li><strong>2025:</strong> Took charge of the marketing video for Launchpad 2025 by µLearn & IEEE</li>
+<li><strong>2025:</strong> Appointed Digital Art Lead of The Vinci Cult, a creative collective</li>
+<li><strong>2025:</strong> Created “Celere Bird” — a minimal AI email SaaS client with smart inbox and AI replies</li>
+
+                </ul>
+            </section>
+
+            <!-- Timeline Section -->
+            <section class="section">
+                <h2>Life Timeline</h2>
+                <div class="timeline">
+    <div class="timeline-item">
+        <span class="year">2002</span>
+        <p>Born in Kuravilangad, Kerala, India</p>
+    </div>
+    <div class="timeline-item">
+        <span class="year">2020</span>
+        <p>Completed high school education</p>
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022</span>
+        <p>Graduated from higher secondary school</p>
+    </div>
+    <div class="timeline-item">
+        <span class="year">2022</span>
+        <p>Started B.Tech in Computer Science and Engineering at SJCET, Pala</p>
+    </div>
+    <div class="timeline-item">
+        <span class="year">2023</span>
+        <p>Discovered a passion for digital art and front-end development</p>
+    </div>
+    <div class="timeline-item">
+        <span class="year">2024</span>
+        <p>Mentored students at µLearn SJCET and became CMO of IEDC SJCET</p>
+    </div>
+    <div class="timeline-item">
+        <span class="year">2025</span>
+        <p>Currently in final year of engineering; leading creative and technical projects</p>
+    </div>
+</div>
+
+            </section>
+
+            <!-- Legacy Section -->
+            <section class="section">
+                <h2>Legacy</h2>
+<p>Jose Thomas’s legacy is shaped by a rare blend of digital artistry, technical innovation, and community leadership. From crafting impactful visual designs to mentoring students in tech, he continues to inspire the next generation of creators and developers.</p>
+<p>His platforms like <span class="highlight">Inkspire</span> and projects like <em>Celere Bird</em> are not just creative outputs—they're statements of passion, self-expression, and purposeful technology that empower both artists and users alike.</p>
+
+                <a href="#" class="btn">Learn More About Her Research</a>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Biography Task - Only for Mulearn IG task</p>
+        </footer>
+    </div>
+</body>
+</html>
