@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silly Story Generator</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #5a67d8;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .input-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 150px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #5a67d8;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        input[type="radio"] {
+            transform: scale(1.2);
+        }
+        
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .story-output {
+            background: linear-gradient(45deg, #ffeaa7, #fdcb6e);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #2d3436;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .story-text {
+            font-weight: bold;
+        }
+        
+        .placeholder {
+            color: #636e72;
+            font-style: italic;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Silly Story Generator </h1>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label for="customName">Enter a name:</label>
+                <input type="text" id="customName" placeholder="Bob">
+            </div>
+            
+            <div class="input-group">
+                <label>Choose temperature:</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="fahrenheit" name="temperature" value="fahrenheit" checked>
+                        <label for="fahrenheit">°F</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="celsius" name="temperature" value="celsius">
+                        <label for="celsius">°C</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Choose weight:</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="pounds" name="weight" value="pounds" checked>
+                        <label for="pounds">lbs</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="kilograms" name="weight" value="kilograms">
+                        <label for="kilograms">kg</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="generateStory()">Generate Random Story! 🎲</button>
+        
+        <div class="story-output">
+            <div class="placeholder">
+                Click the button above to generate a silly story! 😄
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        const insertX = [
+            'a gigantic purple elephant',
+            'a tiny dancing robot',
+            'a mysterious flying taco',
+            'a singing refrigerator',
+            'a magical unicorn',
+            'a grumpy wizard',
+            'a cheerful dinosaur',
+            'a sneaky ninja cat',
+            'a bouncing basketball',
+            'a talking sandwich'
+        ];
+
+        const insertY = [
+            'the top of Mount Everest',
+            'a secret underwater city',
+            'the middle of a chocolate factory',
+            'a haunted pizza parlor',
+            'the International Space Station',
+            'a giant hamster wheel',
+            'a magical forest',
+            'the bottom of the ocean',
+            'a cloud made of cotton candy',
+            'the inside of a video game'
+        ];
+
+        const insertZ = [
+            'melted into a puddle of rainbow goo',
+            'started breakdancing uncontrollably',
+            'transformed into a giant bubble',
+            'began speaking in ancient riddles',
+            'turned into a flock of butterflies',
+            'exploded into confetti',
+            'became invisible for exactly 3 minutes',
+            'started juggling flaming marshmallows',
+            'grew wings and flew away',
+            'turned into a disco ball'
+        ];
+
+        
+        function randomValueFromArray(array) {
+            const random = Math.floor(Math.random() * array.length);
+            return array[random];
+        }
+
+        
+        function generateStory() {
+            
+            const xItem = randomValueFromArray(insertX);
+            const yItem = randomValueFromArray(insertY);
+            const zItem = randomValueFromArray(insertZ);
+
+            
+            const customName = document.getElementById('customName').value || 'Bob';
+            const tempUnit = document.querySelector('input[name="temperature"]:checked').value;
+            const weightUnit = document.querySelector('input[name="weight"]:checked').value;
+
+            
+            let temperature, weight;
+            if (tempUnit === 'celsius') {
+                temperature = Math.round((94 - 32) * 5/9) + '°C';
+            } else {
+                temperature = '94°F';
+            }
+
+            if (weightUnit === 'kilograms') {
+                weight = Math.round(300 * 0.453592) + ' kg';
+            } else {
+                weight = '300 lbs';
+            }
+
+            
+            const storyTemplate = `It was ${temperature} outside, so ${customName} went for a walk. When they got to ${yItem}, they stared in horror for a few moments, then ${zItem}. ${customName} saw the whole thing, but was not surprised — ${xItem} weighs ${weight}, and it was a hot day.`;
+
+           
+            const storyOutput = document.querySelector('.story-output');
+            storyOutput.innerHTML = `<div class="story-text">${storyTemplate}</div>`;
+
+            
+            storyOutput.style.animation = 'none';
+            storyOutput.offsetHeight; // Trigger reflow
+            storyOutput.style.animation = 'fadeIn 0.5s ease-in';
+        }
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add keyboard support
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                generateStory();
+            }
+        });
+
+        
+        const randomNames = ['Alice', 'Charlie', 'Diana', 'Ethan', 'Fiona', 'George', 'Hannah', 'Ian', 'Julia', 'Kevin'];
+        
+      
+        setInterval(function() {
+            const nameInput = document.getElementById('customName');
+            if (nameInput.value === '') {
+                nameInput.placeholder = randomNames[Math.floor(Math.random() * randomNames.length)];
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
